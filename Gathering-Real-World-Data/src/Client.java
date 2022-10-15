@@ -5,22 +5,10 @@ import java.util.Scanner;
  * The client class holds the main function.
  */
 public class Client {
+
     /**
-     *Performs the following tasks:
-     * 1) creates BST
-     * 2) opens/reads CSV file
-     * 3) while looping for every location (USA, Canada, ect.), the loop will do the following:
-     * ---- iterates through every line with the same location
-     * ---- compares newCases to the items in MinQueue.
-     * ---- If the compared item is greater than anything in MinQueue, it deletes and replaces the lesser item.
-     * 4)Once it iterates through an entire country, main inserts the three top cases into the BST
-     * 5)Close file
-     * 6)Create a queue
-     * 7) use inorder traversal to enqueue every item in BST
-     * 8) writes output file
-     *
-     * @param args
-     */
+    *@author Ben Heinze
+    */
 
     public static void main(String [] args) throws IOException {
         //Opens file and makes it readable
@@ -42,13 +30,13 @@ public class Client {
         while(in.hasNextLine()){
         //for(int k=0; k<1000;k++){
             line = in.nextLine(); //creates String of the entire line
-            String[] temp = line.split(","); //turns string into array separated by ","
+            String[] temp = line.split(","); //turns string into array separated by "," ex)     [continent,location,date,totalCases,newCases,population]
 
             //assigns each column of data to a variable
             String continent = temp[0], location = temp[1], date = temp[2];
             long totalCases = Long.parseLong(temp[3]), newCases = Long.parseLong(temp[4]), population = Long.parseLong(temp[5]);
 
-            //creates first instance of country with column variables
+            //creates instance of country 
             Country country = new Country(continent, location, date, totalCases, newCases, population);
 
             //if it is the first iteration,
@@ -59,7 +47,6 @@ public class Client {
 
             //If the lastLocation is the same as current location, insert country;
             if(lastLocation.compareTo(location)==0){
-                //if(pq.isFull()){    pq.delMin();    } does this in insert function
                 pq.insert(country);
             }
 
@@ -68,11 +55,10 @@ public class Client {
                 //loops until there are no items left in the MinQ
                 while(!pq.isEmpty()){
                     Country top = pq.delMin();
-
                     bst.put(top.getNewCases(), top);
 
                 }//while
-                pq.insert(country);
+                pq.insert(country); //
                 lastLocation = location;
             }//else
 
