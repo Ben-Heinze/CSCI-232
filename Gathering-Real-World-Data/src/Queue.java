@@ -2,6 +2,12 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+/**
+* author Ben Heinze
+*/
+
+
 public class Queue<T> {
     private T[] q; //declares generic array called q
     private int first=0; //head of queue
